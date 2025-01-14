@@ -36,9 +36,7 @@ public class Hunter {
      */
     public void changeGold(int modifier) {
         gold += modifier;
-        if (gold < 0) {
-            gold = 0;
-        }
+
     }
 
     /**
@@ -193,5 +191,12 @@ public class Hunter {
             }
         }
         return -1;
+    }
+
+    public void lose() {
+        if (this.gold < 0) {
+            System.out.println("\n" + "GAME OVER" + "\n" + "You are in gold deficit. Gold: " + gold);
+            System.exit(0);
+        }
     }
 }
