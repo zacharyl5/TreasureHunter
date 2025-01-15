@@ -11,6 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean easy;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -18,9 +19,10 @@ public class Town {
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness) {
+    public Town(Shop shop, double toughness, boolean easy) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        this.easy = easy;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -64,7 +66,7 @@ public class Town {
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
-            if (checkItemBreak()) {
+            if (checkItemBreak() && !easy) {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + item + ".";
             }
@@ -101,7 +103,11 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
+            double chance = noTroubleChance;
+            if (easy) {
+                chance *= 0.75;
+            }
+            if (Math.random() > chance) {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);

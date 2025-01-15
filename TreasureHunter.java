@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean easyMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -25,6 +26,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
     }
 
     /**
@@ -48,7 +50,7 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 20);
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("(H)ard mode, (e)asy mode, or (n)ormal mode? (y/n/e): ");
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
@@ -60,6 +62,9 @@ public class TreasureHunter {
             hunter.buyItem("boots", 10);
             hunter.buyItem("horse", 12);
             hunter.buyItem("boat", 20);
+        } else if (hard.equals("e")) {
+            easyMode = true;
+            hunter.changeGold(20);
         }
     }
 
@@ -76,6 +81,9 @@ public class TreasureHunter {
             // and the town is "tougher"
             toughness = 0.75;
         }
+        if (easyMode) {
+            markdown = 1;
+        }
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
@@ -85,7 +93,7 @@ public class TreasureHunter {
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness,easyMode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
@@ -93,6 +101,7 @@ public class TreasureHunter {
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
     }
+
 
     /**
      * Displays the menu and receives the choice from the user.<p>
