@@ -135,6 +135,14 @@ public class Hunter {
                 printableKit += Colors.PURPLE + item + Colors.RESET + space;
             }
         }
+
+        printableKit += "\nTreasure found: ";
+        for (String treasure : playersTreasures) {
+            if (treasure != null) {
+                printableKit += "a " + treasure + space;
+            }
+        }
+
         return printableKit;
     }
 
