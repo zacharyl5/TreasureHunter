@@ -10,6 +10,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] playersTreasures = new String[0];
     private int gold;
 
     /**
@@ -146,6 +147,20 @@ public class Hunter {
             str += " and " + getInventory();
         }
         return str;
+    }
+
+    public void addTreasure(String treasure) {
+        playersTreasures = new String[playersTreasures.length+1];
+        playersTreasures[playersTreasures.length-1] = treasure;
+    }
+
+    public boolean hasTreasure(String treasure) {
+        for (String treasures : playersTreasures) {
+            if (treasures != null && treasures.equals(treasure)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

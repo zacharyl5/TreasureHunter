@@ -10,6 +10,8 @@ public class Town {
     private Shop shop;
     private Terrain terrain;
     private String printMessage;
+    private String treasure;
+    private boolean searchStatus = false;
     private boolean toughTown;
     private boolean easy;
 
@@ -23,7 +25,7 @@ public class Town {
         this.shop = shop;
         this.terrain = getNewTerrain();
         this.easy = easy;
-
+        this.treasure = treasure();
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
         hunter = null;
@@ -39,6 +41,22 @@ public class Town {
 
     public String getLatestNews() {
         return printMessage;
+    }
+
+    public void huntTreasure() {
+        if (!searchStatus) {
+            searchStatus = true;
+            if (this.hunter.hasTreasure(this.treasure)) {
+                System.out.println("You already collected a " + this.treasure + " so don't collect it again");
+            } else {
+                System.out.println("You found a " + this.treasure);
+                if (!this.treasure.equals("dust")) {
+                    hunter.addTreasure(this.treasure);
+                }
+            }
+        } else {
+            System.out.println("You have already searched this town");
+        }
     }
 
     /**
@@ -154,5 +172,18 @@ public class Town {
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
+    }
+
+    private String treasure() {
+        double rand = Math.random();
+        if (rand < .25) {
+            return "crown";
+        } else if (rand < .50) {
+            return "trophy";
+        } else if (rand < .75) {
+            return "gem";
+        } else {
+            return "dust";
+        }
     }
 }
