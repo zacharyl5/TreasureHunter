@@ -135,14 +135,6 @@ public class Hunter {
                 printableKit += Colors.PURPLE + item + Colors.RESET + space;
             }
         }
-
-        printableKit += "\nTreasure found: ";
-        for (String treasure : playersTreasures) {
-            if (treasure != null) {
-                printableKit += "a " + treasure + space;
-            }
-        }
-
         return printableKit;
     }
 
@@ -153,6 +145,17 @@ public class Hunter {
         String str = hunterName + " has " + Colors.YELLOW + gold + Colors.RESET + " gold";
         if (!kitIsEmpty()) {
             str += " and " + getInventory();
+        }
+
+        str += "\nTreasure found: ";
+        if (!treasureListIsEmpty()) {
+            for (String treasure : playersTreasures) {
+                if (treasure != null) {
+                    str += "a " + Colors.BLUE + treasure + Colors.RESET;
+                }
+            }
+        } else {
+            str += "none";
         }
         return str;
     }
@@ -201,6 +204,16 @@ public class Hunter {
         }
         return true;
     }
+
+    private boolean treasureListIsEmpty() {
+        for (String treasure : playersTreasures) {
+            if (treasure != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Finds the first index where there is a null value.
