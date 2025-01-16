@@ -103,7 +103,7 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (hasSword || customer.buyItem(item, costOfItem)) {
+        if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
             if (item.equals("Sword")) {
                 hasSword = true;
