@@ -43,20 +43,18 @@ public class Town {
         return printMessage;
     }
 
-    public void huntTreasure() {
+    public String huntTreasure() {
         if (!searchStatus) {
             searchStatus = true;
             if (this.hunter.hasTreasure(this.treasure)) {
                 System.out.println("You already collected a " + this.treasure + " so don't collect it again");
             } else {
                 System.out.println("You found a " + this.treasure);
-                if (!this.treasure.equals("dust")) {
-                    hunter.addTreasure(this.treasure);
-                }
             }
         } else {
             System.out.println("You have already searched this town");
         }
+        return treasure;
     }
 
     /**

@@ -10,7 +10,8 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
-    private String[] playersTreasures = new String[0];
+    private String[] playersTreasures = new String[3];
+    private int treasuresIdx = 0;
     private int gold;
 
     /**
@@ -155,7 +156,7 @@ public class Hunter {
         if (!treasureListIsEmpty()) {
             for (String treasure : playersTreasures) {
                 if (treasure != null) {
-                    str += "a " + Colors.BLUE + treasure + Colors.RESET;
+                    str += "a " + Colors.BLUE + treasure + Colors.RESET + " ";
                 }
             }
         } else {
@@ -165,8 +166,17 @@ public class Hunter {
     }
 
     public void addTreasure(String treasure) {
-        playersTreasures = new String[playersTreasures.length+1];
-        playersTreasures[playersTreasures.length-1] = treasure;
+        boolean in = false;
+        for (String treasures : playersTreasures) {
+            if (treasure == treasures) {
+                in = true;
+            }
+        }
+        if (!in) {
+            playersTreasures[treasuresIdx] = treasure;
+            treasuresIdx++;
+        }
+        win();
     }
 
     public boolean hasTreasure(String treasure) {
@@ -231,6 +241,20 @@ public class Hunter {
             }
         }
         return -1;
+    }
+
+    public void win() {
+        int count = 0;
+        for (String treasure : playersTreasures) {
+            if (treasure != null) {
+                count++;
+            }
+        }
+        if (count == 3) {
+            System.out.println(infoString());
+            System.out.println("Congratulations, you have found the last of the three treasures, you win!");
+            System.exit(0);
+        }
     }
 
     public void lose() {
