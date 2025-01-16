@@ -14,6 +14,8 @@ public class Shop {
     private static final int BOOTS_COST = 10;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private static final int SWORD_COST = 0;
+    public static boolean hasSword = false;
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -88,6 +90,9 @@ public class Shop {
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Horse: " + HORSE_COST + " gold\n";
         str += "Boat: " + BOAT_COST + " gold\n";
+        if (TreasureHunter.samMode) {
+            str += "Sword: " + SWORD_COST + " gold\n";
+        }
         return str;
     }
 
@@ -98,8 +103,11 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
+        if (hasSword || customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+            if (item.equals("Sword")) {
+                hasSword = true;
+            }
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
         }
@@ -153,6 +161,8 @@ public class Shop {
             return HORSE_COST;
         } else if (item.equals("boat")) {
             return BOAT_COST;
+        } else if (item.equals("sword")) {
+            return SWORD_COST;
         } else {
             return 0;
         }

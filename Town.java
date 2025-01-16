@@ -125,7 +125,11 @@ public class Town {
             if (easy) {
                 chance *= 0.75;
             }
-            if (Math.random() > chance) {
+            if (Shop.hasSword) {
+                printMessage += "A legendary samurai? I can't beat you, I'm leavin'!";
+                printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                hunter.changeGold(goldDiff);
+            } else if (Math.random() > chance) {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);

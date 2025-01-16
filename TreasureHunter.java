@@ -18,6 +18,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
+    public static boolean samMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -28,6 +29,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode = false;
+        samMode = false;
     }
 
     /**
@@ -66,6 +68,8 @@ public class TreasureHunter {
         } else if (hard.equals("e")) {
             easyMode = true;
             hunter.changeGold(20);
+        } else if (hard.equals("s")) {
+            samMode = true;
         }
     }
 
