@@ -74,6 +74,9 @@ public class Shop {
                 }
             }
         }
+        if (TreasureHunter.getSamMode()) {
+            return "PLEASE DON'T HURT ME JUST TAKE IT FOR FREE! \nYou left the shop";
+        }
         return "You left the shop";
     }
 

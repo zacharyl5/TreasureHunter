@@ -284,9 +284,15 @@ public class Hunter {
         }
     }
 
-    public void lose() {
+    public void lose(int goldDiff) {
         if (this.gold < 0) {
-            System.out.println("\n" + "GAME OVER" + "\n" + "You are in gold deficit. Gold: " + gold);
+            System.out.println();
+            gold = 0;
+            System.out.println(Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET);
+            System.out.println("You lost the brawl and pay " + Colors.RED + goldDiff + Colors.RESET + " gold.");
+            System.out.println("\n" + "GAME OVER" + "\n" + "You are in gold deficit of " + goldDiff);
+            System.out.println();
+            System.out.println("Player Stats: \n" + infoString());
             System.exit(0);
         }
     }
