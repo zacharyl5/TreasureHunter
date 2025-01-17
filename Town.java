@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * The Town Class is where it all happens.
  * The Town is designed to manage all the things a Hunter can do in town.
@@ -15,6 +17,8 @@ public class Town {
     private boolean digStatus = false;
     private boolean toughTown;
     private boolean easy;
+    private boolean lookedForTrouble = false;
+    private boolean winLose = false;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -41,7 +45,16 @@ public class Town {
     }
 
     public String getLatestNews() {
-        return printMessage;
+        String message = printMessage;
+        if (lookedForTrouble) {
+            if (winLose) {
+                message += "\nYou won the brawl";
+            } else {
+                message += "\nYou lost the brawl";
+            }
+        }
+        printMessage = "";
+        return message;
     }
 
     public String huntTreasure() {
@@ -145,22 +158,26 @@ public class Town {
             if (hunter.checkIfHasSword()) {
                 printMessage += "A legendary samurai? I can't beat you, I'm leavin'!";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                winLose = true;
                 hunter.changeGold(goldDiff);
             } else if (Math.random() > chance) {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                winLose = true;
                 hunter.changeGold(goldDiff);
             } else {
                 printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
                 printMessage += "\nYou lost the brawl and pay " + Colors.RED + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(-goldDiff);
+                winLose = false;
                 hunter.lose(goldDiff);
             }
+            lookedForTrouble = true;
         }
     }
 
     public String infoString() {
-        return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
+        return "This nice little town is surrounded by " + Colors.CYAN + terrain.getTerrainName() + Colors.RESET + ".";
     }
 
     /**
