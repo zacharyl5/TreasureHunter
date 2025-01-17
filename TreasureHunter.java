@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -58,13 +57,15 @@ public class TreasureHunter {
         if (hard.equals("h")) {
             hardMode = true;
         } else if (hard.equals("test")) {
-            hunter.changeGold(134);
+            hunter.changeGold(142);
             hunter.buyItem("water", 2);
             hunter.buyItem("rope", 4);
             hunter.buyItem("machete", 6);
+            hunter.buyItem("shovel", 8);
             hunter.buyItem("boots", 10);
             hunter.buyItem("horse", 12);
             hunter.buyItem("boat", 20);
+
         } else if (hard.equals("e")) {
             easyMode = true;
             hunter.changeGold(20);
@@ -127,6 +128,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(H)unt for treasure");
+            System.out.println("(D)ig for gold");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -157,6 +159,8 @@ public class TreasureHunter {
             if (!treasure.equals("dust")) {
                 hunter.addTreasure(treasure);
             }
+        } else if (choice.equals("d")) {
+            currentTown.dig();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {

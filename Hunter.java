@@ -1,5 +1,3 @@
-import java.awt.*;
-
 /**
  * Hunter Class<br /><br />
  * This class represents the treasure hunter character (the player) in the Treasure Hunt game.
@@ -22,7 +20,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[6]; // only 5 possible items can be stored in kit
+        kit = new String[7]; // only 5 possible items can be stored in kit
         gold = startingGold;
     }
 
@@ -182,6 +180,15 @@ public class Hunter {
     public boolean hasTreasure(String treasure) {
         for (String treasures : playersTreasures) {
             if (treasures != null && treasures.equals(treasure)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfHasShovel() {
+        for (String item : kit) {
+            if (item != null && item.equals("shovel")) {
                 return true;
             }
         }

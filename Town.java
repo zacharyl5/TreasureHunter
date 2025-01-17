@@ -12,6 +12,7 @@ public class Town {
     private String printMessage;
     private String treasure;
     private boolean searchStatus = false;
+    private boolean digStatus = false;
     private boolean toughTown;
     private boolean easy;
 
@@ -55,6 +56,26 @@ public class Town {
             System.out.println("You have already searched this town");
         }
         return treasure;
+    }
+
+    public void dig() {
+        if (hunter.checkIfHasShovel()) {
+            if (!digStatus) {
+                double rand = Math.random();
+                if (rand < .5) {
+                    int amount = (int) (Math.random() * 20) + 1;
+                    System.out.println("You dug up " + Colors.YELLOW + amount + Colors.RESET + " gold!");
+                    hunter.changeGold(amount);
+                } else {
+                    System.out.println("You dug but only found dirt");
+                }
+                digStatus = true;
+            } else {
+                System.out.println("You already dug for gold in this town");
+            }
+        } else {
+            System.out.println("You can't dig for gold without a shovel");
+        }
     }
 
     /**
