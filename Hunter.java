@@ -20,10 +20,13 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[7]; // only 5 possible items can be stored in kit
+        kit = new String[7]; // only 7 possible items can be stored in kit
         gold = startingGold;
     }
 
+    public void changeKitSize() {
+        kit = new String[8];
+    }
     //Accessors
     public String getHunterName() {
         return hunterName;
@@ -47,14 +50,18 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
-        if (Shop.hasSword && !hasItemInKit(item)) {
-            addItem(item);
-            return true;
+        if (!checkIfHasSword()) {
+            if (costOfItem == -1 || gold < costOfItem || hasItemInKit(item)) {
+                return false;
+            }
+        } else {
+            if (hasItemInKit(item)) {
+                return false;
+            }
         }
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
-            return false;
+        if (!checkIfHasSword()) {
+            gold -= costOfItem;
         }
-        gold -= costOfItem;
         addItem(item);
         return true;
     }
@@ -135,7 +142,11 @@ public class Hunter {
         for (String item : kit) {
 
             if (item != null) {
-                printableKit += Colors.PURPLE + item + Colors.RESET + space;
+                if (item.equals("sword")) {
+                    printableKit += Colors.RED + item + Colors.RESET + space;
+                } else {
+                    printableKit += Colors.PURPLE + item + Colors.RESET + space;
+                }
             }
         }
         return printableKit;
@@ -166,7 +177,7 @@ public class Hunter {
     public void addTreasure(String treasure) {
         boolean in = false;
         for (String treasures : playersTreasures) {
-            if (treasure == treasures) {
+            if (treasure.equals(treasures)) {
                 in = true;
             }
         }
@@ -180,6 +191,15 @@ public class Hunter {
     public boolean hasTreasure(String treasure) {
         for (String treasures : playersTreasures) {
             if (treasures != null && treasures.equals(treasure)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfHasSword() {
+        for (String item : kit) {
+            if (item != null && item.equals("sword")) {
                 return true;
             }
         }

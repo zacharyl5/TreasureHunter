@@ -38,8 +38,7 @@ public class Terrain {
     public boolean canCrossTerrain(Hunter hunter) {
         if (hunter.hasItemInKit(neededItem)) {
             return true;
-        }
-        return false;
+        } else return terrainName.equals("Jungle") && hunter.checkIfHasSword();
     }
 
     /**

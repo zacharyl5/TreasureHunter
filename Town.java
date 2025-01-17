@@ -144,7 +144,7 @@ public class Town {
             if (easy) {
                 chance *= 0.75;
             }
-            if (Shop.hasSword) {
+            if (hunter.checkIfHasSword()) {
                 printMessage += "A legendary samurai? I can't beat you, I'm leavin'!";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);
