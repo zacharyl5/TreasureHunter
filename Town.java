@@ -48,12 +48,12 @@ public class Town {
         if (!searchStatus) {
             searchStatus = true;
             if (this.hunter.hasTreasure(this.treasure)) {
-                System.out.println("You already collected a " + this.treasure + " so don't collect it again");
+                printMessage = "You already collected a " + this.treasure + " so don't collect it again";
             } else {
-                System.out.println("You found a " + this.treasure);
+                printMessage = "You found a " + this.treasure;
             }
         } else {
-            System.out.println("You have already searched this town");
+            printMessage = "You have already searched this town";
         }
         return treasure;
     }
@@ -64,17 +64,17 @@ public class Town {
                 double rand = Math.random();
                 if (rand < .5) {
                     int amount = (int) (Math.random() * 20) + 1;
-                    System.out.println("You dug up " + Colors.YELLOW + amount + Colors.RESET + " gold!");
+                    printMessage = "You dug up " + Colors.YELLOW + amount + Colors.RESET + " gold!";
                     hunter.changeGold(amount);
                 } else {
-                    System.out.println("You dug but only found dirt");
+                    printMessage = "You dug but only found dirt";
                 }
                 digStatus = true;
             } else {
-                System.out.println("You already dug for gold in this town");
+                printMessage = "You already dug for gold in this town";
             }
         } else {
-            System.out.println("You can't dig for gold without a shovel");
+            printMessage = "You can't dig for gold without a shovel";
         }
     }
 
@@ -119,9 +119,7 @@ public class Town {
      *
      * @param choice If the user wants to buy or sell items at the shop.
      */
-    public void enterShop(String choice) {
-        printMessage = shop.enter(hunter, choice);
-    }
+    public void enterShop(String choice) { printMessage = shop.enter(hunter, choice); }
 
     /**
      * Gives the hunter a chance to fight for some gold.<p>
